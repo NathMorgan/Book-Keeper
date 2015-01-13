@@ -12,36 +12,32 @@ namespace Book_Keeper_WCF_Service
     [ServiceContract]
     public interface IService1
     {
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<Book> GetBooks();
 
         [OperationContract]
-        string GetData(int value);
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<Author> getAuthors();
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        string GetBooksWithAuthors();
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        string GetBookById(int id);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        string GetAuthorById(int id);
+
+        [OperationContract]
+        string AddBook(string book);
+
+        [OperationContract]
+        string AddAuthor(string author);
 
         // TODO: Add your service operations here
-    }
-
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }
