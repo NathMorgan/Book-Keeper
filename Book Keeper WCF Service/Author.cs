@@ -20,8 +20,7 @@ namespace Book_Keeper_WCF_Service
         }
     
         public int Authorid { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
         public bool Hidden { get; set; }
     
         public virtual ICollection<BookXAuthor> BookXAuthors { get; set; }

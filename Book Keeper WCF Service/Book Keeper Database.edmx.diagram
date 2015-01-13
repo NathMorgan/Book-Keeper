@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1ed405f8643f4e5b970cc15d387ef319" Name="Diagram1" >
-        <EntityTypeShape EntityType="BookKeeperModel.Author" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="BookKeeperModel.Book" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="BookKeeperModel.Author" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="BookKeeperModel.Book" Width="1.5" PointX="0.75" PointY="0.875" />
         <EntityTypeShape EntityType="BookKeeperModel.BookXAuthor" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="BookKeeperModel.FK_BookXAuthors_Authors" />
         <AssociationConnector Association="BookKeeperModel.FK_BookXAuthors_Books" />

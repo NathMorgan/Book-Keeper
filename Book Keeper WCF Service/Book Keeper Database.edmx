@@ -10,8 +10,7 @@
             <PropertyRef Name="Authorid" />
           </Key>
           <Property Name="Authorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Hidden" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Books">
@@ -20,7 +19,7 @@
           </Key>
           <Property Name="Bookid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="2" Nullable="false" />
           <Property Name="Hidden" Type="bit" Nullable="false" />
           <Property Name="Stock" Type="int" Nullable="false" />
         </EntityType>
@@ -92,8 +91,7 @@
             <PropertyRef Name="Authorid" />
           </Key>
           <Property Name="Authorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Hidden" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BookXAuthors" Relationship="BookKeeperModel.FK_BookXAuthors_Authors" FromRole="Author" ToRole="BookXAuthor" />
         </EntityType>
@@ -103,7 +101,7 @@
           </Key>
           <Property Name="Bookid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
           <Property Name="Hidden" Type="Boolean" Nullable="false" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BookXAuthors" Relationship="BookKeeperModel.FK_BookXAuthors_Books" FromRole="Book" ToRole="BookXAuthor" />
@@ -143,7 +141,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -153,8 +151,7 @@
             <EntityTypeMapping TypeName="BookKeeperModel.Author">
               <MappingFragment StoreEntitySet="Authors">
                 <ScalarProperty Name="Hidden" ColumnName="Hidden" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Authorid" ColumnName="Authorid" />
               </MappingFragment>
             </EntityTypeMapping>
