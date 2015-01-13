@@ -12,22 +12,43 @@ namespace Book_Keeper_WCF_Service
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        public string GetData(int value)
+        public IEnumerable<Book> GetBooks()
         {
-            return string.Format("You entered: {0}", value);
+            BookKeeperEntities db = new BookKeeperEntities();
+            var books = db.Books.Where(q => q.Hidden == false);
+            return books;
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public IEnumerable<Author> getAuthors()
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            BookKeeperEntities db = new BookKeeperEntities();
+            var authors = db.Authors.Where(q => q.Hidden == false);
+            return authors;
+        }
+
+        public string GetBooksWithAuthors()
+        {
+            return "";
+        }
+
+        public string GetBookById(int id)
+        {
+            return "";
+        }
+
+        public string GetAuthorById(int id)
+        {
+            return "";
+        }
+
+        public string AddBook(string book)
+        {
+            return "";
+        }
+
+        public string AddAuthor(string author)
+        {
+            return "";
         }
     }
 }
