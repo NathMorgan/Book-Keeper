@@ -39,7 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -64,10 +71,29 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Author.cs">
+      <DependentUpon>Book Keeper Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Book Keeper Database.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Book Keeper Database.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Book Keeper Database.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Book Keeper Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Book Keeper Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Book.cs">
+      <DependentUpon>Book Keeper Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookXAuthor.cs">
+      <DependentUpon>Book Keeper Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
@@ -83,15 +109,29 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Book Keeper Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Book Keeper Database.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Book Keeper Database.edmx</DependentUpon>
+      <LastGenOutput>Book Keeper Database.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="Book Keeper Database.edmx.diagram">
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Book Keeper Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Book Keeper Database.edmx</DependentUpon>
+      <LastGenOutput>Book Keeper Database.cs</LastGenOutput>
+    </Content>
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

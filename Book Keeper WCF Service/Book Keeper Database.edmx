@@ -4,44 +4,203 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Book_x0020_Keeper_x0020_Database.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="Book_x0020_Keeper_x0020_DatabaseTargetContainer" >
+    <Schema Namespace="BookKeeperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Authors">
+          <Key>
+            <PropertyRef Name="Authorid" />
+          </Key>
+          <Property Name="Authorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Bookid" />
+          </Key>
+          <Property Name="Bookid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookXAuthors">
+          <Key>
+            <PropertyRef Name="BooksXAuthorsid" />
+          </Key>
+          <Property Name="BooksXAuthorsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bookid" Type="int" Nullable="false" />
+          <Property Name="Authorid" Type="int" Nullable="false" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookXAuthors_Authors">
+          <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
+          <End Role="BookXAuthors" Type="Self.BookXAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authors">
+              <PropertyRef Name="Authorid" />
+            </Principal>
+            <Dependent Role="BookXAuthors">
+              <PropertyRef Name="Authorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookXAuthors_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="BookXAuthors" Type="Self.BookXAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookXAuthors">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookKeeperModelStoreContainer">
+          <EntitySet Name="Authors" EntityType="Self.Authors" Schema="BookKeeper" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="BookKeeper" store:Type="Tables" />
+          <EntitySet Name="BookXAuthors" EntityType="Self.BookXAuthors" Schema="BookKeeper" store:Type="Tables" />
+          <AssociationSet Name="FK_BookXAuthors_Authors" Association="Self.FK_BookXAuthors_Authors">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="BookXAuthors" EntitySet="BookXAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookXAuthors_Books" Association="Self.FK_BookXAuthors_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BookXAuthors" EntitySet="BookXAuthors" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Book_x0020_Keeper_x0020_Database" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="Book_x0020_Keeper_x0020_DatabaseContainer" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="BookKeeperModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookKeeperEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Authors" EntityType="BookKeeperModel.Author" />
+          <EntitySet Name="Books" EntityType="BookKeeperModel.Book" />
+          <EntitySet Name="BookXAuthors" EntityType="BookKeeperModel.BookXAuthor" />
+          <AssociationSet Name="FK_BookXAuthors_Authors" Association="BookKeeperModel.FK_BookXAuthors_Authors">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="BookXAuthor" EntitySet="BookXAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookXAuthors_Books" Association="BookKeeperModel.FK_BookXAuthors_Books">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="BookXAuthor" EntitySet="BookXAuthors" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Authorid" />
+          </Key>
+          <Property Name="Authorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookXAuthors" Relationship="BookKeeperModel.FK_BookXAuthors_Authors" FromRole="Author" ToRole="BookXAuthor" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Bookid" />
+          </Key>
+          <Property Name="Bookid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookXAuthors" Relationship="BookKeeperModel.FK_BookXAuthors_Books" FromRole="Book" ToRole="BookXAuthor" />
+        </EntityType>
+        <EntityType Name="BookXAuthor">
+          <Key>
+            <PropertyRef Name="BooksXAuthorsid" />
+          </Key>
+          <Property Name="BooksXAuthorsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bookid" Type="Int32" Nullable="false" />
+          <Property Name="Authorid" Type="Int32" Nullable="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="BookKeeperModel.FK_BookXAuthors_Authors" FromRole="BookXAuthor" ToRole="Author" />
+          <NavigationProperty Name="Book" Relationship="BookKeeperModel.FK_BookXAuthors_Books" FromRole="BookXAuthor" ToRole="Book" />
+        </EntityType>
+        <Association Name="FK_BookXAuthors_Authors">
+          <End Type="BookKeeperModel.Author" Role="Author" Multiplicity="1" />
+          <End Type="BookKeeperModel.BookXAuthor" Role="BookXAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Authorid" />
+            </Principal>
+            <Dependent Role="BookXAuthor">
+              <PropertyRef Name="Authorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookXAuthors_Books">
+          <End Type="BookKeeperModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="BookKeeperModel.BookXAuthor" Role="BookXAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Bookid" />
+            </Principal>
+            <Dependent Role="BookXAuthor">
+              <PropertyRef Name="Bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Book_x0020_Keeper_x0020_Database" />
-        <Alias Key="Target" Value="Book_x0020_Keeper_x0020_Database.Store" />
-        <EntityContainerMapping CdmEntityContainer="Book_x0020_Keeper_x0020_DatabaseContainer" StorageEntityContainer="Book_x0020_Keeper_x0020_DatabaseTargetContainer">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookKeeperModelStoreContainer" CdmEntityContainer="BookKeeperEntities" >
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="BookKeeperModel.Author">
+              <MappingFragment StoreEntitySet="Authors">
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Authorid" ColumnName="Authorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BookKeeperModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookXAuthors">
+            <EntityTypeMapping TypeName="BookKeeperModel.BookXAuthor">
+              <MappingFragment StoreEntitySet="BookXAuthors">
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="Authorid" ColumnName="Authorid" />
+                <ScalarProperty Name="Bookid" ColumnName="Bookid" />
+                <ScalarProperty Name="BooksXAuthorsid" ColumnName="BooksXAuthorsid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <edmx:Connection>
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
-    </edmx:Connection>
-    <edmx:Options>
+    </Connection>
+    <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
-    </edmx:Options>
+    </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <edmx:Diagrams>
-    </edmx:Diagrams>
-  </edmx:Designer>
+    <Diagrams></Diagrams>
+  </Designer>
 </edmx:Edmx>
