@@ -7,24 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Book_Keeper_WCF_Service
+namespace Book_Keeper_WCF_Service.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class BookXAuthor
     {
-        public Book()
-        {
-            this.BookXAuthors = new HashSet<BookXAuthor>();
-        }
-    
+        public int BooksXAuthorsid { get; set; }
         public int Bookid { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
+        public int Authorid { get; set; }
         public bool Hidden { get; set; }
-        public int Stock { get; set; }
     
-        public virtual ICollection<BookXAuthor> BookXAuthors { get; set; }
+        public virtual Author Author { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

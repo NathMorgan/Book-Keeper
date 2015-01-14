@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Book_Keeper_WCF_Service
+namespace Book_Keeper_WCF_Service.Database
 {
     using System;
     using System.Data.Entity;
