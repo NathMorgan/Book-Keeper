@@ -24,5 +24,11 @@ namespace Book_Keeper
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Getting current button clicked
+            string buttonName = (sender as Button).Content.ToString();
+        }
     }
 }
