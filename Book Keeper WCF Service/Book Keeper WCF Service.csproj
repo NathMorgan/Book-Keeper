@@ -68,33 +68,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Service1.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Author.cs">
+    <Compile Include="Database\Author.cs">
       <DependentUpon>Book Keeper Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Book Keeper Database.Context.cs">
+    <Compile Include="Database\Book Keeper Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Book Keeper Database.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Book Keeper Database.cs">
+    <Compile Include="Database\Book Keeper Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Book Keeper Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Book Keeper Database.Designer.cs">
+    <Compile Include="Database\Book Keeper Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Book.cs">
+    <Compile Include="Database\Book.cs">
       <DependentUpon>Book Keeper Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="BookXAuthor.cs">
+    <Compile Include="Database\BookXAuthor.cs">
       <DependentUpon>Book Keeper Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\BookModel.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
@@ -105,19 +109,19 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Book Keeper Database.edmx">
+    <EntityDeploy Include="Database\Book Keeper Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Book Keeper Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Book Keeper Database.Context.tt">
+    <Content Include="Database\Book Keeper Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
       <LastGenOutput>Book Keeper Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Book Keeper Database.edmx.diagram">
+    <Content Include="Database\Book Keeper Database.edmx.diagram">
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
     </Content>
-    <Content Include="Book Keeper Database.tt">
+    <Content Include="Database\Book Keeper Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Book Keeper Database.edmx</DependentUpon>
       <LastGenOutput>Book Keeper Database.cs</LastGenOutput>
