@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Book_Keeper_WCF_Service.Database;
+using Book_Keeper_WCF_Service.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -8,47 +10,111 @@ using System.Text;
 
 namespace Book_Keeper_WCF_Service
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        public IEnumerable<Book> GetBooks()
+        /**
+         * Combines books and authors from the database into a model object list that is returned
+         *
+         * @return IEnumerable<BookModel>
+         */
+        public IEnumerable<BookModel> GetBooks()
         {
             BookKeeperEntities db = new BookKeeperEntities();
+
             var books = db.Books.Where(q => q.Hidden == false);
-            return books;
+
+            List<BookModel> bookModels = new List<BookModel>();
+            foreach (var book in books)
+            {
+                var authors = (from ba in db.BookXAuthors
+                               join a in db.Authors on ba.Authorid equals a.Authorid
+                               where ba.Bookid == book.Bookid && ba.Hidden == false && a.Hidden == false
+                               select new AuthorModel { Autherid = a.Authorid, Name = a.Name}
+                              ).ToList();
+                bookModels.Add(new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title });
+            }
+
+            db.Dispose();
+
+            return bookModels;
         }
 
-        public IEnumerable<Author> getAuthors()
+        /**
+         * Selects Authors from the database into a model that is returned
+         *
+         * @return AuthorModel
+         */
+        public IEnumerable<AuthorModel> getAuthors()
         {
             BookKeeperEntities db = new BookKeeperEntities();
-            var authors = db.Authors.Where(q => q.Hidden == false);
+
+            var authors = (from a in db.Authors
+                           where a.Hidden == false
+                           select new AuthorModel { Autherid = a.Authorid,  Name = a.Name}).ToList();
+
+            db.Dispose();
+
             return authors;
         }
 
-        public string GetBooksWithAuthors()
+        /**
+         * Selects a single book by ID from the database combines it with authors into a model object that is returned
+         *
+         * @return BookModel
+         */
+        public BookModel GetBookById(int id)
         {
-            return "";
+            BookKeeperEntities db = new BookKeeperEntities();
+
+            var book = db.Books.Where(q => q.Hidden == false && q.Bookid == id).First();
+
+            var authors = (from ba in db.BookXAuthors
+                           join a in db.Authors on ba.Authorid equals a.Authorid
+                           where ba.Bookid == book.Bookid && ba.Hidden == false && a.Hidden == false
+                           select new AuthorModel { Autherid = a.Authorid, Name = a.Name }
+                          ).ToList();
+
+            db.Dispose();
+
+            return new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title };
         }
 
-        public string GetBookById(int id)
+        /**
+         * Selects a single author by ID from the database into a model object that is returned
+         *
+         * @return AuthorModel
+         */
+        public AuthorModel GetAuthorById(int id)
         {
-            return "";
+            BookKeeperEntities db = new BookKeeperEntities();
+
+            var authors = (from a in db.Authors
+                           where a.Hidden == false && a.Authorid == id
+                           select new AuthorModel { Autherid = a.Authorid, Name = a.Name }).First();
+
+            db.Dispose();
+
+            return authors;
         }
 
-        public string GetAuthorById(int id)
+        /**
+         * Adds an book to the database
+         *
+         * @return bool
+         */
+        public bool AddBook(string book)
         {
-            return "";
+            return true;
         }
 
-        public string AddBook(string book)
+        /**
+         * Adds an author to the database
+         *
+         * @return bool
+         */
+        public bool AddAuthor(string author)
         {
-            return "";
-        }
-
-        public string AddAuthor(string author)
-        {
-            return "";
+            return true;
         }
     }
 }

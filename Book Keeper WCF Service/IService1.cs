@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Book_Keeper_WCF_Service.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -8,36 +9,62 @@ using System.Text;
 
 namespace Book_Keeper_WCF_Service
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IService1
     {
+        /**
+         * Combines books and authors from the database into a model object list that is returned
+         *
+         * @return IEnumerable<BookModel>
+         */
+        [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetBooks")]
+        IEnumerable<BookModel> GetBooks();
+
+        /**
+         * Selects Authors from the database into a model that is returned
+         *
+         * @return AuthorModel
+         */
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<Book> GetBooks();
+        IEnumerable<AuthorModel> getAuthors();
 
+        /**
+         * Selects a single book by ID from the database combines it with authors into a model object that is returned
+         *
+         * @return BookModel
+         */
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<Author> getAuthors();
+        BookModel GetBookById(int id);
 
+        /**
+         * Selects a single author by ID from the database into a model object that is returned
+         *
+         * @return AuthorModel
+         */
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string GetBooksWithAuthors();
+        AuthorModel GetAuthorById(int id);
 
+        /**
+         * Adds an book to the database
+         *
+         * @return bool
+         */
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string GetBookById(int id);
+        bool AddBook(string book);
 
+        /**
+         * Adds an author to the database
+         *
+         * @return bool
+         */
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        string GetAuthorById(int id);
-
-        [OperationContract]
-        string AddBook(string book);
-
-        [OperationContract]
-        string AddAuthor(string author);
-
-        // TODO: Add your service operations here
+        [WebInvoke(UriTemplate = "Models/AutherModel", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        bool AddAuthor(string author);
     }
 }
