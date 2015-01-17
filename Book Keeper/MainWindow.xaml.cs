@@ -53,6 +53,7 @@ namespace Book_Keeper
 
         private void AddRecordButton()
         {
+            //Getting the values from the input boxes
             string authorName = Author_Name.Text;
             string bookTitle = Book_Title.Text;
             string price = Price.Text;
