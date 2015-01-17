@@ -212,16 +212,10 @@ namespace Book_Keeper.BookKeeperSR {
         System.Threading.Tasks.Task<Book_Keeper.BookKeeperSR.AuthorModel> GetAuthorByIdAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddBook", ReplyAction="http://tempuri.org/IService1/AddBookResponse")]
-        bool AddBook(string book);
+        bool AddBook(Book_Keeper.BookKeeperSR.BookModel book);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddBook", ReplyAction="http://tempuri.org/IService1/AddBookResponse")]
-        System.Threading.Tasks.Task<bool> AddBookAsync(string book);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddAuthor", ReplyAction="http://tempuri.org/IService1/AddAuthorResponse")]
-        bool AddAuthor(string author);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddAuthor", ReplyAction="http://tempuri.org/IService1/AddAuthorResponse")]
-        System.Threading.Tasks.Task<bool> AddAuthorAsync(string author);
+        System.Threading.Tasks.Task<bool> AddBookAsync(Book_Keeper.BookKeeperSR.BookModel book);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -283,20 +277,12 @@ namespace Book_Keeper.BookKeeperSR {
             return base.Channel.GetAuthorByIdAsync(id);
         }
         
-        public bool AddBook(string book) {
+        public bool AddBook(Book_Keeper.BookKeeperSR.BookModel book) {
             return base.Channel.AddBook(book);
         }
         
-        public System.Threading.Tasks.Task<bool> AddBookAsync(string book) {
+        public System.Threading.Tasks.Task<bool> AddBookAsync(Book_Keeper.BookKeeperSR.BookModel book) {
             return base.Channel.AddBookAsync(book);
-        }
-        
-        public bool AddAuthor(string author) {
-            return base.Channel.AddAuthor(author);
-        }
-        
-        public System.Threading.Tasks.Task<bool> AddAuthorAsync(string author) {
-            return base.Channel.AddAuthorAsync(author);
         }
     }
 }

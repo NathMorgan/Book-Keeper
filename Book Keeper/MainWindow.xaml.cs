@@ -36,16 +36,38 @@ namespace Book_Keeper
             //Outputting to console that the button was clicked
             Console.WriteLine(DateTime.Now.ToString("h:mm:ss") + ": Button clicked: " + buttonName);
 
+            //Checking what button was clicked and displaying details to logbox
             switch (buttonName)
             {
-                case "Add Record": break;
+                case "Add Record":
+                    AddRecordButton();
+                    break;
                 case "Display Count":
-                    LogBox.Text += "\n " + ": Total Stock Count: " + bookhandle.getTotalStock();
+                    LogBox.Text += "\n " + "Total Stock Count: " + bookhandle.getTotalStock();
                     break;
                 case "Display Stock Value":
                     LogBox.Text += "\n " + "Total Stock Price: £" + bookhandle.getTotalStockPrice();
                     break;
             }
+        }
+
+        private void AddRecordButton()
+        {
+            string authorName = Author_Name.Text;
+            string bookTitle = Book_Title.Text;
+            string price = Price.Text;
+            string stock = Stock_Quantity.Text;
+
+            try
+            {
+                if (bookhandle.AddBook(authorName, bookTitle, price, stock))
+                    LogBox.Text += "\n " + "Book Added!";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error adding record: " + e.Message);
+            }
+
         }
     }
 }

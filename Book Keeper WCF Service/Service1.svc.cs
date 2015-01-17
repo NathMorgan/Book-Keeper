@@ -102,18 +102,20 @@ namespace Book_Keeper_WCF_Service
          *
          * @return bool
          */
-        public bool AddBook(string book)
+        public bool AddBook(BookModel book)
         {
-            return true;
-        }
+            BookKeeperEntities db = new BookKeeperEntities();
 
-        /**
-         * Adds an author to the database
-         *
-         * @return bool
-         */
-        public bool AddAuthor(string author)
-        {
+            var bookdb = db.Books.Add(new Book { Hidden = false, Price = book.Price, Stock = book.Stock, Title = book.Title });
+            
+            foreach (AuthorModel author in book.Authors)
+            {
+                var authordb = db.Authors.Add(new Author { Hidden = false, Name = author.Name });
+                db.BookXAuthors.Add(new BookXAuthor { Bookid = bookdb.Bookid, Authorid = authordb.Authorid });
+            }
+
+            db.SaveChanges();
+
             return true;
         }
     }

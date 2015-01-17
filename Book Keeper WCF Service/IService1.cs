@@ -54,17 +54,7 @@ namespace Book_Keeper_WCF_Service
          * @return bool
          */
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        bool AddBook(string book);
-
-        /**
-         * Adds an author to the database
-         *
-         * @return bool
-         */
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        [WebInvoke(UriTemplate = "Models/AutherModel", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        bool AddAuthor(string author);
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        bool AddBook(BookModel book);
     }
 }

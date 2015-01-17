@@ -1,6 +1,7 @@
 ﻿using Book_Keeper.BookKeeperSR;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,25 @@ namespace Book_Keeper.Classes
             }
 
             return price;
+        }
+
+        public bool AddBook(string authorName, string bookTitle, string pricein, string stockin)
+        {
+            int stock = Convert.ToInt32(stockin);
+            decimal price = decimal.Parse(pricein, NumberStyles.Currency);
+
+            List<AuthorModel> authors = new List<AuthorModel>();
+            authors.Add(new AuthorModel { Name = authorName});
+            BookModel book = new BookModel();
+            book.Authors = authors.ToArray();
+            book.Title = bookTitle;
+            book.Stock = stock;
+            book.Price = price;
+
+
+            wcfService.AddBook(book);
+
+            return true;
         }
     }
 }
