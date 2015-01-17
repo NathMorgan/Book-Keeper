@@ -11,14 +11,14 @@ namespace Book_Keeper.Classes
     class BookHandler
     {
         private BookKeeperSR.Service1Client wcfService;
-        private BookModel[] books;
-        private AuthorModel[] authors;
+        private List<BookModel> books;
+        private List<AuthorModel> authors;
 
         public BookHandler()
         {
             wcfService = new BookKeeperSR.Service1Client();
-            authors = wcfService.getAuthors().ToArray();
-            books = wcfService.GetBooks().ToArray();
+            authors = wcfService.getAuthors().ToList();
+            books = wcfService.GetBooks().ToList();
 
         }
 
@@ -40,7 +40,7 @@ namespace Book_Keeper.Classes
             return null;
         }
 
-        public BookModel[] getBooks()
+        public List<BookModel> getBooks()
         {
             return books;
         }
