@@ -1,4 +1,5 @@
-﻿using Book_Keeper.Classes;
+﻿using Book_Keeper.BookKeeperSR;
+using Book_Keeper.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,45 +31,32 @@ namespace Book_Keeper
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Getting current button clicked
-            string buttonName = (sender as Button).Content.ToString();
 
-            //Outputting to console that the button was clicked
-            Console.WriteLine(DateTime.Now.ToString("h:mm:ss") + ": Button clicked: " + buttonName);
-
-            //Checking what button was clicked and displaying details to logbox
-            switch (buttonName)
-            {
-                case "Add Record":
-                    AddRecordButton();
-                    break;
-                case "Display Count":
-                    LogBox.Text += "\n " + "Total Stock Count: " + bookhandle.getTotalStock();
-                    break;
-                case "Display Stock Value":
-                    LogBox.Text += "\n " + "Total Stock Price: £" + bookhandle.getTotalStockPrice();
-                    break;
-            }
         }
 
         private void AddRecordButton()
         {
-            //Getting the values from the input boxes
-            string authorName = Author_Name.Text;
-            string bookTitle = Book_Title.Text;
-            string price = Price.Text;
-            string stock = Stock_Quantity.Text;
 
-            try
-            {
-                if (bookhandle.AddBook(authorName, bookTitle, price, stock))
-                    LogBox.Text += "\n " + "Book Added!";
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error adding record: " + e.Message);
-            }
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var bookHander = new BookHandler();
+
+            TotalStockVal.Content = bookHander.getTotalStock() + " (£" + bookhandle.getTotalStockPrice() + ")";
+
+            List<BookModel> books = bookHander.getBooks().ToList();
+
+            BookListBox.ItemsSource = books.Select(x => x.Title);
+
+
+            /*
+            System.Windows.Data.CollectionViewSource bookModelViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("bookModelViewSource")));
+
+            //Loading object into the DataView
+            var bookHander = new BookHandler();
+            bookModelViewSource.Source = bookHander.getBooks();
+             * */
         }
     }
 }
