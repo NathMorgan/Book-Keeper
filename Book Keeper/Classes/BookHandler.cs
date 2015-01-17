@@ -40,6 +40,11 @@ namespace Book_Keeper.Classes
             return null;
         }
 
+        public BookModel[] getBooks()
+        {
+            return books;
+        }
+
 
         /**
          * Gets the total amount of stock across all books
