@@ -9,7 +9,7 @@
     </Window.Resources>
     <Grid Margin="0,0,2,0" DataContext="{StaticResource bookModelViewSource}">
         <Grid x:Name="LeftBoxWrapper" HorizontalAlignment="Left" Height="358" Margin="10,10,0,0" VerticalAlignment="Top" Width="179">
-            <ListBox x:Name="BookListBox" HorizontalAlignment="Left" Height="324" VerticalAlignment="Top" Width="179"/>
+            <ListBox x:Name="BookListBox" HorizontalAlignment="Left" Height="324" VerticalAlignment="Top" Width="179" SelectionChanged="BookListBox_SelectionChanged" />
             <Button x:Name="AddBook" Content="Add Book" HorizontalAlignment="Left" Margin="0,333,0,0" VerticalAlignment="Top" Width="179" />
         </Grid>
         <Grid x:Name="BookInformationWrapper" HorizontalAlignment="Left" Height="324" Margin="207,10,0,0" VerticalAlignment="Top" Width="487" Background="#FFF0F0F0">
@@ -26,8 +26,8 @@
             <Label Content="Authors:" HorizontalAlignment="Left" Margin="128,10,0,0" VerticalAlignment="Top"/>
             <Label x:Name="TitleVal" Content="N/A" HorizontalAlignment="Left" Margin="45,112,0,0" VerticalAlignment="Top" Height="31" Width="263"/>
             <Label x:Name="DescriptionVal" Content="N/A" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" Height="42" Width="298"/>
-            <Label x:Name="StockVal" Content="N/A" HorizontalAlignment="Left" Margin="45,215,0,0" VerticalAlignment="Top" Height="27" Width="256"/>
-            <Label x:Name="StockVal_Copy" Content="N/A" HorizontalAlignment="Left" Margin="45,248,0,0" VerticalAlignment="Top" Height="25" Width="256"/>
+            <Label x:Name="StockVal" Content="N/A" HorizontalAlignment="Left" Margin="45,217,0,0" VerticalAlignment="Top" Height="27" Width="256"/>
+            <Label x:Name="PriceVal" Content="N/A" HorizontalAlignment="Left" Margin="45,248,0,0" VerticalAlignment="Top" Height="25" Width="256"/>
         </Grid>
         <Grid x:Name="BookStoreInfoWrapper" HorizontalAlignment="Left" Height="29" Margin="207,339,0,0" VerticalAlignment="Top" Width="487">
             <Label Content="Total Stock: " HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="71"/>
