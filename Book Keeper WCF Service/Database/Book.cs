@@ -24,6 +24,8 @@ namespace Book_Keeper_WCF_Service.Database
         public decimal Price { get; set; }
         public bool Hidden { get; set; }
         public int Stock { get; set; }
+        public string Description { get; set; }
+        public string Note { get; set; }
     
         public virtual ICollection<BookXAuthor> BookXAuthors { get; set; }
     }

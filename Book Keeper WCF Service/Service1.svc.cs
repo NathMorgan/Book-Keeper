@@ -31,7 +31,7 @@ namespace Book_Keeper_WCF_Service
                                where ba.Bookid == book.Bookid && ba.Hidden == false && a.Hidden == false
                                select new AuthorModel { Autherid = a.Authorid, Name = a.Name}
                               ).ToList();
-                bookModels.Add(new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title });
+                bookModels.Add(new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title, Description = book.Description, Note = book.Note });
             }
 
             db.Dispose();
@@ -76,7 +76,7 @@ namespace Book_Keeper_WCF_Service
 
             db.Dispose();
 
-            return new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title };
+            return new BookModel { Authors = authors, Bookid = book.Bookid, Price = book.Price, Stock = book.Stock, Title = book.Title, Description = book.Description, Note = book.Note };
         }
 
         /**
@@ -106,7 +106,7 @@ namespace Book_Keeper_WCF_Service
         {
             BookKeeperEntities db = new BookKeeperEntities();
 
-            var bookdb = db.Books.Add(new Book { Hidden = false, Price = book.Price, Stock = book.Stock, Title = book.Title });
+            var bookdb = db.Books.Add(new Book { Hidden = false, Price = book.Price, Stock = book.Stock, Title = book.Title, Description = book.Description, Note = book.Note });
             
             foreach (AuthorModel author in book.Authors)
             {

@@ -22,6 +22,8 @@
           <Property Name="Price" Type="decimal" Precision="19" Scale="2" Nullable="false" />
           <Property Name="Hidden" Type="bit" Nullable="false" />
           <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Note" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="BookXAuthors">
           <Key>
@@ -104,6 +106,8 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
           <Property Name="Hidden" Type="Boolean" Nullable="false" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BookXAuthors" Relationship="BookKeeperModel.FK_BookXAuthors_Books" FromRole="Book" ToRole="BookXAuthor" />
         </EntityType>
         <EntityType Name="BookXAuthor">
@@ -159,6 +163,8 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="BookKeeperModel.Book">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="Hidden" ColumnName="Hidden" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
