@@ -56,5 +56,14 @@ namespace Book_Keeper_WCF_Service
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
         bool AddBook(BookModel book);
+
+        /**
+         * Deletes books & authors from the database
+         *
+         * @return bool
+         */
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        bool DeleteBookByID(int id);
     }
 }

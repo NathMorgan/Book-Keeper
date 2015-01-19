@@ -80,6 +80,15 @@ namespace Book_Keeper.Classes
             return price;
         }
 
+        public void DeleteBookByName(String bookname)
+        {
+            var book = books.Where(x => x.Title == bookname);
+
+            if (book != null)
+            {
+            }
+        }
+
         /**
          * Combines inputs given by the user into a BookModel and sends to the WCF service handler to add to the database
          *

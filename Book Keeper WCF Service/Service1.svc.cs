@@ -118,5 +118,40 @@ namespace Book_Keeper_WCF_Service
 
             return true;
         }
+
+        /**
+         * Deletes books & authors from the database
+         *
+         * @return bool
+         */
+        public bool DeleteBookByID(int id)
+        {
+            BookKeeperEntities db = new BookKeeperEntities();
+
+            //Selecting the book by id from the database and setting hidden to true
+            var book = (from b in db.Books
+                        where b.Bookid == id
+                        select b).First();
+
+            book.Hidden = true;
+
+            //Using the bookid select all relationships to book/authors and set hidden to true
+            var bookAuthors = (from ba in db.BookXAuthors
+                               where ba.Bookid == book.Bookid
+                               select ba).ToList();
+
+            foreach (var bookAuthor in bookAuthors)
+            {
+                bookAuthor.Hidden = true;
+                var author = (from a in db.Authors
+                              where a.Authorid == bookAuthor.Authorid
+                              select a).First();
+                author.Hidden = true;
+            }
+
+            db.SaveChanges();
+
+            return true;
+        }
     }
 }

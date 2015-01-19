@@ -248,6 +248,12 @@ namespace Book_Keeper.BookKeeperSR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddBook", ReplyAction="http://tempuri.org/IService1/AddBookResponse")]
         System.Threading.Tasks.Task<bool> AddBookAsync(Book_Keeper.BookKeeperSR.BookModel book);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteBookByID", ReplyAction="http://tempuri.org/IService1/DeleteBookByIDResponse")]
+        bool DeleteBookByID(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteBookByID", ReplyAction="http://tempuri.org/IService1/DeleteBookByIDResponse")]
+        System.Threading.Tasks.Task<bool> DeleteBookByIDAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -315,6 +321,14 @@ namespace Book_Keeper.BookKeeperSR {
         
         public System.Threading.Tasks.Task<bool> AddBookAsync(Book_Keeper.BookKeeperSR.BookModel book) {
             return base.Channel.AddBookAsync(book);
+        }
+        
+        public bool DeleteBookByID(int id) {
+            return base.Channel.DeleteBookByID(id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteBookByIDAsync(int id) {
+            return base.Channel.DeleteBookByIDAsync(id);
         }
     }
 }
