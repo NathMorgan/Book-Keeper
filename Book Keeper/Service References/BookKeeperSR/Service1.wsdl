@@ -43,6 +43,12 @@
   <wsdl:message name="IService1_DeleteBookByID_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteBookByIDResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_EditBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditBook" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditBookResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetBooks">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetBooks" message="tns:IService1_GetBooks_InputMessage" />
@@ -67,6 +73,10 @@
     <wsdl:operation name="DeleteBookByID">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteBookByID" message="tns:IService1_DeleteBookByID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteBookByIDResponse" message="tns:IService1_DeleteBookByID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditBook" message="tns:IService1_EditBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditBookResponse" message="tns:IService1_EditBook_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -118,6 +128,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteBookByID">
       <soap:operation soapAction="http://tempuri.org/IService1/DeleteBookByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditBook">
+      <soap:operation soapAction="http://tempuri.org/IService1/EditBook" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

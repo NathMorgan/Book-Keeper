@@ -153,5 +153,47 @@ namespace Book_Keeper_WCF_Service
 
             return true;
         }
+
+        public bool EditBook(BookModel bookin)
+        {
+            BookKeeperEntities db = new BookKeeperEntities();
+
+            var book = (from b in db.Books
+                        where b.Bookid == bookin.Bookid
+                        select b).First();
+
+            book.Title = bookin.Title;
+            book.Stock = bookin.Stock;
+            book.Price = bookin.Price;
+            book.Note = bookin.Note;
+            book.Description = bookin.Description;
+
+            var bookAuthors = (from ba in db.BookXAuthors
+                               join a in db.Authors on ba.Authorid equals a.Authorid
+                               where ba.Bookid == book.Bookid
+                               select new AuthorModel { Autherid = a.Authorid, Name = a.Name}).ToList();
+
+            var authorsNotInDB = bookAuthors.Except(bookin.Authors);
+            var authorsNotInList = bookin.Authors.Except(bookAuthors);
+
+            foreach (AuthorModel author in authorsNotInDB)
+            {
+                var authordb = db.Authors.Add(new Author { Hidden = false, Name = author.Name });
+                db.BookXAuthors.Add(new BookXAuthor { Bookid = book.Bookid, Authorid = authordb.Authorid });
+            }
+
+            foreach (var bookAuthor in authorsNotInList)
+            {
+                var author = db.Authors.Where(x => x.Authorid == bookAuthor.Autherid).First();
+                var bookauthor = db.BookXAuthors.Where(x => x.Authorid == author.Authorid).First();
+
+                author.Hidden = true;
+                bookauthor.Hidden = true;
+            }
+
+            db.SaveChanges();
+
+            return true;
+        }
     }
 }

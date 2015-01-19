@@ -65,5 +65,14 @@ namespace Book_Keeper_WCF_Service
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         bool DeleteBookByID(int id);
+
+        /**
+         * Edits a book and saves it to the database
+         *
+         * @return bool
+         */
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        bool EditBook(BookModel bookin);
     }
 }
