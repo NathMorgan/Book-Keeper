@@ -10,6 +10,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Authors" nillable="true" type="tns:ArrayOfAuthorModel" />
       <xs:element minOccurs="0" name="Bookid" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Note" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Price" type="xs:decimal" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />

@@ -29,6 +29,12 @@ namespace Book_Keeper.BookKeeperSR {
         private int BookidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NoteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -69,6 +75,32 @@ namespace Book_Keeper.BookKeeperSR {
                 if ((this.BookidField.Equals(value) != true)) {
                     this.BookidField = value;
                     this.RaisePropertyChanged("Bookid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Note {
+            get {
+                return this.NoteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NoteField, value) != true)) {
+                    this.NoteField = value;
+                    this.RaisePropertyChanged("Note");
                 }
             }
         }
